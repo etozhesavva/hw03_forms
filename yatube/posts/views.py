@@ -8,25 +8,28 @@ from .models import Post, User, Group
 
 
 def index(request):
-    posts = Post.objects.all() 
-    return render(request, 'posts/index.html', { 
-        'posts': posts, 
-        'page_obj': get_page_context(posts.all(), request), 
-    })  
+    posts = Post.objects.all()
+    return render(request, 'posts/index.html', {
+        'posts': posts,
+        'page_obj': get_page_context(posts.all(), request),
+    })
+
 
 def group_posts(request, slug):
-    group = get_object_or_404(Group, slug=slug) 
-    return render(request, 'posts/group_list.html', { 
-        'group': group, 
-        'page_obj': get_page_context(group.posts.all(), request), 
-    })  
+    group = get_object_or_404(Group, slug=slug)
+    return render(request, 'posts/group_list.html', {
+        'group': group,
+        'page_obj': get_page_context(group.posts.all(), request),
+    })
+
 
 def profile(request, username):
     author = get_object_or_404(User, username=username)
-    return render(request, 'posts/profile.html', { 
-        'author': author, 
-        'page_obj': get_page_context(author.posts.all(), request), 
+    return render(request, 'posts/profile.html', {
+        'author': author,
+        'page_obj': get_page_context(author.posts.all(), request),
     })
+
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
