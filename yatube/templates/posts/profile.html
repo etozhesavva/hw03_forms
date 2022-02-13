@@ -8,12 +8,12 @@
   {% endif %}
 {% endblock %}
 {% block content %}
-  <<div class="container py-5">        
+  <div class="container py-5">        
     <h1>Все посты пользователя
       {% if author.get_full_name %}
         {{ author.get_full_name }}
       {% else %}
-        {{ author }}
+        {{ author.username }}
       {% endif %}
     </h1>
     <h3>Всего постов: 
@@ -24,7 +24,7 @@
         <ul>
           <li>
             Автор:
-            {% if post.author.get_full_name %}{{ post.author.get_full_name }}{% else %}{{ post.author }}{% endif %} <a href="{% url 'posts:profile' post.author %}">все посты пользователя</a>
+            <a href="{% url 'posts:profile' post.author %}">{% if post.author.get_full_name %}{{ post.author.get_full_name }}{% else %}{{ author.username }}{% endif %}</a>
           </li>
           <li>
             Дата публикации: {{ post.pub_date|date:"d E Y" }}
@@ -36,12 +36,13 @@
         <a href="{% url 'posts:post_detail' post.pk %}">подробная информация </a>
       </article>
       {% if post.group %}
-        <a href="{% url 'posts:group' post.group.slug %}">все записи группы</a>
+        Группа:
+        <a href="{% url 'posts:group' slug=post.group.slug %}"> {{post.group.title}}</a>
       {% endif %}
       {% if not forloop.last %}
         <hr>
       {% endif %}
     {% endfor %}
   </div>
-{% include 'posts/includes/paginator.html' %}
+  {% include 'posts/includes/paginator.html' %}
 {% endblock %}

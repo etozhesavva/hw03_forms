@@ -10,7 +10,7 @@
       <ul>
         <li>
           Автор:
-          {% if post.author.get_full_name %}{{ post.author.get_full_name }}{% else %}{{ post.author }}{% endif %} <a href="{% url 'posts:profile' post.author %}">все посты пользователя</a>
+          <a href="{% url 'posts:profile' post.author %}">{{ post.author.get_full_name }}</a>
         </li>
         <li>
           Дата публикации: {{ post.pub_date|date:"d E Y" }}
@@ -21,5 +21,5 @@
       {% if not forloop.last %}<hr>{% endif %}
     {% endfor %}
   </div>
-{% include 'posts/includes/paginator.html' %}
+  {% include 'posts/includes/paginator.html' %}
 {% endblock %}
